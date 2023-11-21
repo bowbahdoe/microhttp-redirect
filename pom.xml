@@ -6,7 +6,7 @@
 
     <groupId>dev.mccue</groupId>
     <artifactId>microhttp-redirect</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>microhttp-redirect</name>
@@ -64,6 +64,14 @@
             <groupId>dev.mccue</groupId>
             <artifactId>reasonphrase</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

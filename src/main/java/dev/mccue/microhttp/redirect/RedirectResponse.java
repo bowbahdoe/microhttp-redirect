@@ -6,9 +6,10 @@ import org.microhttp.Header;
 import org.microhttp.Response;
 
 import java.util.List;
+import java.util.Objects;
 
 public final class RedirectResponse implements IntoResponse {
-    enum StatusCode {
+    enum Status {
         MOVED_PERMANENTLY(301),
         FOUND(302),
         SEE_OTHER(303),
@@ -16,46 +17,66 @@ public final class RedirectResponse implements IntoResponse {
         PERMANENT_REDIRECT(308);
 
         final int code;
-        StatusCode(int code) {
+        Status(int code) {
             this.code = code;
         }
     }
 
-    private final StatusCode statusCode;
+    private final Status status;
     private final String location;
 
-    private RedirectResponse(StatusCode statusCode, String location) {
-        this.statusCode = statusCode;
-        this.location = location;
+    private RedirectResponse(Status status, String location) {
+        this.status = status;
+        this.location = Objects.requireNonNull(location);
     }
 
     public static RedirectResponse movedPermanently(String location) {
-        return new RedirectResponse(StatusCode.MOVED_PERMANENTLY, location);
+        return new RedirectResponse(Status.MOVED_PERMANENTLY, location);
     }
 
     public static RedirectResponse found(String location) {
-        return new RedirectResponse(StatusCode.FOUND, location);
+        return new RedirectResponse(Status.FOUND, location);
     }
 
     public static RedirectResponse seeOther(String location) {
-        return new RedirectResponse(StatusCode.SEE_OTHER, location);
+        return new RedirectResponse(Status.SEE_OTHER, location);
     }
 
     public static RedirectResponse temporary(String location) {
-        return new RedirectResponse(StatusCode.TEMPORARY_REDIRECT, location);
+        return new RedirectResponse(Status.TEMPORARY_REDIRECT, location);
     }
 
     public static RedirectResponse permanent(String location) {
-        return new RedirectResponse(StatusCode.PERMANENT_REDIRECT, location);
+        return new RedirectResponse(Status.PERMANENT_REDIRECT, location);
     }
 
     @Override
     public Response intoResponse() {
         return new Response(
-                statusCode.code,
-                ReasonPhrase.forStatus(statusCode.code),
+                status.code,
+                ReasonPhrase.forStatus(status.code),
                 List.of(new Header("Location", location)),
                 new byte[]{}
         );
+    }
+
+    @Override
+    public String toString() {
+        return "RedirectResponse[" +
+               "status=" + status +
+               ", location='" + location + '\'' +
+               ']';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof RedirectResponse response
+                && status == response.status
+                && location.equals(response.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, location);
     }
 }
