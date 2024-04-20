@@ -1,4 +1,4 @@
-# microhttp-cookies
+# microhttp-redirect
 
 Utility for producing a redirect response.
 
@@ -27,7 +27,6 @@ dependencies {
 ```java
 import dev.mccue.microhttp.handler.IntoResponse;
 import dev.mccue.microhttp.handler.RouteHandler;
-import org.jspecify.annotations.Nullable;
 import org.microhttp.Request;
 
 import java.util.regex.Matcher;
