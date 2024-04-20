@@ -10,7 +10,7 @@ Utility for producing a redirect response.
 <dependency>
     <groupId>dev.mccue</groupId>
     <artiactId>microhttp-redirect</artiactId>
-    <version>0.0.2</version>
+    <version>2024.04.20</version>
 </dependency>
 ```
 
@@ -18,7 +18,7 @@ Utility for producing a redirect response.
 
 ```groovy
 dependencies {
-    implementation('dev.mccue:microhttp-redirect:0.0.2')
+    implementation('dev.mccue:microhttp-redirect:2024.04.20')
 }
 ```
 
